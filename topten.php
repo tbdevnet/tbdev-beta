@@ -21,11 +21,11 @@ ob_start("ob_gzhandler");
   require_once "include/bittorrent.php";
   require_once "include/html_functions.php";
   require_once "include/user_functions.php";
-  
+
   dbconn(false);
 
   loggedinorreturn();
-  
+
   $lang = array_merge( load_language('global'), load_language('topten') );
 
 /*
@@ -65,7 +65,7 @@ ob_start("ob_gzhandler");
 function usertable($res, $frame_caption)
   {
   	global $CURUSER, $lang;
-  	
+
   	$htmlout = '';
 
     $htmlout .= begin_frame($frame_caption, true);
@@ -109,16 +109,16 @@ function usertable($res, $frame_caption)
         }
         $htmlout .= end_table();
         $htmlout .= end_frame();
-        
+
      return $htmlout;
   }
 
 function _torrenttable($res, $frame_caption)
     {
-      global $lang;  
-        
+      global $lang;
+
       $htmlout = '';
-      
+
       $htmlout .= begin_frame($frame_caption, true);
       $htmlout .= begin_table();
 
@@ -152,16 +152,16 @@ function _torrenttable($res, $frame_caption)
           }
           $htmlout .= end_table();
           $htmlout .= end_frame();
-          
+
       return $htmlout;
   }
 
   function countriestable($res, $frame_caption, $what)
   {
     global $CURUSER, $TBDEV, $lang;
-    
+
     $htmlout = '';
-    
+
     $htmlout .= begin_frame($frame_caption, true);
     $htmlout .= begin_table();
 
@@ -183,22 +183,30 @@ function _torrenttable($res, $frame_caption)
               $value = mksize($a["ul_avg"]);
             elseif ($what == "Ratio")
               $value = number_format($a["r"],2);
-            $htmlout .= "<tr><td align='center'>$num</td><td align='left'><table border='0' class='main' cellspacing='0' cellpadding='0'><tr><td class='embedded'>".
-              "<img src=\"{$TBDEV['pic_base_url']}flag/{$a['flagpic']}\" alt='' /></td><td class='embedded' style='padding-left: 5px'><b>$a[name]</b></td>".
-              "</tr></table></td><td align='right'>$value</td></tr>\n";
+            $htmlout .= "<tr class='rowhead'>
+                            <td align='center'>$num</td>
+                            <td class='embedded' style='float:left;'>
+                               <table border='0' class='main' cellspacing='0' cellpadding='0'>
+                                     <tr>
+                                        <td style='border:0px;'><img src=\"{$TBDEV['pic_base_url']}flag/{$a['flagpic']}\" alt='' border='0' /></td>
+                                        <td style='border:0px; padding-left:5px;'><b>$a[name]</b></td>".
+                                    "</tr>
+                               </table>
+                            </td>
+                            <td align='right'>$value</td></tr>\n";
           }
           $htmlout .= end_table();
           $htmlout .= end_frame();
-          
+
       return $htmlout;
   }
 
   function peerstable($res, $frame_caption)
   {
     global $lang;
-    
+
     $htmlout = '';
-    
+
     $htmlout .= begin_frame($frame_caption, true);
     $htmlout .= begin_table();
 
@@ -220,7 +228,7 @@ function _torrenttable($res, $frame_caption)
 
 
       $HTMLOUT = '';
-      
+
       $HTMLOUT .= "
                      <div class='cblock'>
                          <div class='cblock-header'>{$lang['head_title']}</div>";
